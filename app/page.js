@@ -15,8 +15,9 @@ export default function Home() {
       <Link className={linkStyles} href="http://localhost:3000/week-3">Link to the week 3 objects</Link>
     </li>
     <li>
-      <Link className={linkStyles} href="http://localhost:3000/week-4">Link to the week 3 props</Link>
+      <Link className={linkStyles} href="http://localhost:3000/week-4">Link to the week 4 page</Link>
     </li>
+    
     </ul>
     </main>
   );
