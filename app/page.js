@@ -18,7 +18,13 @@ export default function Home() {
       <Link className={linkStyles} href="http://localhost:3000/week-4">Link to the week 4 page</Link>
     </li>
     <li>
-      <Link className={linkStyles} href="http://localhost:3000/week-5">Link to the week 4 page</Link>
+      <Link className={linkStyles} href="http://localhost:3000/week-5">Link to the week 5 page</Link>
+    </li>
+    <li>
+      <Link className={linkStyles} href="http://localhost:3000/week-6">Link to the week 6 page</Link>
+    </li>
+    <li>
+      <Link className={linkStyles} href="http://localhost:3000/week-7">Link to the week 6 page</Link>
     </li>
     </ul>
     </main>
