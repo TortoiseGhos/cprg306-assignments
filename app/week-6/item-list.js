@@ -47,9 +47,8 @@ export default function ItemList() {
                     return (
                         <div className="bg-slate-900 max-w-sm mx-5 my-7">
                             <li key={item.id}>
-                            <h2>{item.name}</h2>
-                            <p>{item.quantity}</p>
-                            <p>{item.category}</p>
+                            <li><b>{item.name}</b></li>
+                            <li>Quantity: {item.quantity} in {item.category}</li>
                             </li>
                         </div>
                     );
