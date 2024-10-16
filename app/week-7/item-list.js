@@ -1,15 +1,14 @@
 "use client"
 
-import Items from "./items.json";
 import { useState } from "react";
 
 
 
-export default function ItemList() {
+export default function ItemList({items}) {
 
     const [sortBy, setSortBy] = useState("name");
 
-    Items.sort((a,b) => {
+    const sorting = [...items].sort((a,b) => {
         if (sortBy === "name") {
             return a.name.localeCompare(b.name)
         } else if (sortBy === 'category') {
@@ -41,13 +40,13 @@ export default function ItemList() {
         <button className={buttonNameStyles} onClick={setName}>Name</button>
         <button className={buttonCategoryStyles}onClick={setCategory}>Category</button>
         <ul>
-                {Items.map((item) => {
+                {sorting.map((item) => {
                     return (
                         <div className="bg-slate-900 max-w-sm mx-5 my-7">
-                            <li key={item.id}>
+                            <ul key={item.id}>
                             <li><b>{item.name}</b></li>
                             <li>Quantity: {item.quantity} in {item.category}</li>
-                            </li>
+                            </ul>
                         </div>
                     );
                 })}
