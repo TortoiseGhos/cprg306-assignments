@@ -29,6 +29,9 @@ export default function Home() {
     <li>
       <Link className={linkStyles} href="http://localhost:3000/week-8">Link to the week 8 page</Link>
     </li>
+    <li>
+      <Link className={linkStyles} href="http://localhost:3000/week-9">Link to the week 9 page</Link>
+    </li>
     </ul>
     </main>
   );
