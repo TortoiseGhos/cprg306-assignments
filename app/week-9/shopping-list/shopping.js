@@ -1,5 +1,4 @@
 "use client";
-import Page from "C:/CPRG306/cprg306-assignments/app/week-8/page.js"
 import { useUserAuth } from "../_utils/auth-context";
 
 export default function Page() {
@@ -11,6 +10,6 @@ export default function Page() {
         )
     }
     return(
-        <Page></Page>    
+        <a className="hover:underline"href="./week-8/">{user? "Continue To your Shopping List" : ""}</a>  
     )
 }

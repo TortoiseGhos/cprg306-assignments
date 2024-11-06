@@ -1,5 +1,5 @@
 "use client";
-
+import Shop from "./shopping-list/shopping";
 import { useUserAuth } from "./_utils/auth-context";
 
 export default function Page() { 
@@ -10,7 +10,7 @@ export default function Page() {
             <h1>Week 9</h1>
             <p>{user ? "Hi There" : "Please sign in"}</p>
             <p>{user?.email}</p>
-            <a className="hover:underline"href="./week-8/">{user? "Continue To your Shopping List" : ""}</a>
+            <Shop/>
             <p>
                 {user ? (
                     <button className="hover:underline" onClick={firebaseSignOut}>Sign Out</button>
