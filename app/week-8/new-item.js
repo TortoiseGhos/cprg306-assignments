@@ -1,71 +1,82 @@
-"use client"
-
+"use client";
 
 import { useState } from "react";
 
-
-export default function NewItem({onAddItem}) {
-
-    const [quantity, setQuantity] = useState(0);
+export default function NewItem({ onAddItem }) {
+    const [quantity, setQuantity] = useState(1);
     const [name, setName] = useState("");
     const [category, setCategory] = useState("Produce");
 
-
+    // Styles for increment and decrement buttons
     let incStyles = "bg-blue-600 hover:bg-blue-950 active:bg-yellow-200 rounded text-white mb-5 px-4";
     let decStyles = "bg-blue-600 hover:bg-blue-950 active:bg-yellow-200 rounded text-white mb-5 px-4";
 
-    if(quantity == 20){
-        incStyles = "bg-grey-500 mb-5 px-4";
+    // Disable increment button if quantity is 20, and decrement if quantity is 1
+    if (quantity === 20) {
+        incStyles = "bg-gray-500 mb-5 px-4 cursor-not-allowed";
     }
 
-    if(quantity == 1){
-        decStyles = "bg-grey-500 mb-5 px-4";
+    if (quantity === 1) {
+        decStyles = "bg-gray-500 mb-5 px-4 cursor-not-allowed";
     }
-    const handleSubmit = (event) => {
+
+    // Handle form submission
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const newId = Math.random().toString(36).substr(2, 9);
-        let item = {id: newId, name, quantity, category};
-        onAddItem(item);
-        item = {id: "", name: setName(""), quantity: setQuantity(0), category: setCategory("Produce")};
-            
-    }
 
-    const nameChange = (event) => {
-        setName(event.target.value);
+        // Ensure name is not empty before submitting
+        if (name.trim() === "") {
+            alert("Please enter an item name.");
+            return;
+        }
+        const newId = Math.random().toString(36).substr(2, 9); 
+        const item = { id: newId, name, quantity, category };
+        await onAddItem(item);
+        setName("");
+        setQuantity(1);
+        setCategory("Produce");
     };
 
-    const categoryChange = (event) => {
-        setCategory(event.target.value);
-    }
-
+    // Increment quantity
     const increment = () => {
-        let currentQuantity = quantity;
-        if (quantity <= 19) {
-            setQuantity(currentQuantity + 1); 
+        if (quantity < 20) {
+            setQuantity(prevQuantity => prevQuantity + 1);
         }
-    }
+    };
+
+    // Decrement quantity
     const decrement = () => {
-        let currentQuantity = quantity;
-        if (quantity >= 2) {
-            setQuantity(currentQuantity - 1); 
+        if (quantity > 1) {
+            setQuantity(prevQuantity => prevQuantity - 1);
         }
-    }
+    };
 
-    return(
+    return (
         <main className="flex justify-left">
-            <div className=" justify-center">
-            <div className="flex">
-                <h1>Week 7</h1>
-            </div>
+            <div className="justify-center">
+                <div className="flex">
+                    <h1>Shopping List</h1>
+                </div>
 
-            <div className="justify-between">
-                <form onSubmit={handleSubmit}>
-                    <div className="pt-5" >
-                            <input className="text-black" value={name} type="text" placeholder="Enter the Name" onChange={(event => setName(event.target.value))} required=""/>    
-                    </div>
-                    <div className="pt-5">
-                        <label className="flex">Category </label>
-                            <select className="text-black "value={category} onChange={(event => setCategory(event.target.value))}>
+                <div className="justify-between">
+                    <form onSubmit={handleSubmit}>
+                        <div className="pt-5">
+                            <input
+                                className="text-black p-2"
+                                value={name}
+                                type="text"
+                                placeholder="Enter the Name"
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="pt-5">
+                            <label className="flex">Category </label>
+                            <select
+                                className="text-black p-2"
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                            >
                                 <option value="Produce">Produce</option>
                                 <option value="Dairy">Dairy</option>
                                 <option value="Bakery">Bakery</option>
@@ -77,24 +88,38 @@ export default function NewItem({onAddItem}) {
                                 <option value="Snacks">Snacks</option>
                                 <option value="Household">Household</option>
                                 <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div className="justify-between">
-                        <div className="pt-5">
-                        <p>Quantity: {quantity}</p>
+                            </select>
+                        </div>
+                        <div className="justify-between pt-5">
+                            <p>Quantity: {quantity}</p>
+                            <div>
+                                <button
+                                    type="button"
+                                    className={incStyles}
+                                    onClick={increment}
+                                    disabled={quantity === 20} // Disable if quantity is 20
+                                >
+                                    +
+                                </button>
+                                <button
+                                    type="button"
+                                    className={decStyles}
+                                    onClick={decrement}
+                                    disabled={quantity === 1} // Disable if quantity is 1
+                                >
+                                    -
+                                </button>
+                            </div>
                         </div>
 
-                            <div className="">
-                                <button type="button" className={incStyles} onClick={increment}>+</button>
-                                <button type="button" className={decStyles} onClick={decrement}>-</button>
-                            </div>
-                    </div>
-                    
-                    <button type="submit" onClick={handleSubmit} className="bg-blue-600 hover:bg-blue-950 active:bg-yellow-200 rounded text-white mb-5 px-10">Submit</button>
-                </form>
+                        <button
+                            type="submit"
+                            className="bg-blue-600 hover:bg-blue-950 active:bg-yellow-200 rounded text-white mb-5 px-10"
+                        >
+                        Submit</button>
+                    </form>
+                </div>
             </div>
-            </div>
-
         </main>
     );
 }
